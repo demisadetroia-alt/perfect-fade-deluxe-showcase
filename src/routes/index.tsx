@@ -202,7 +202,7 @@ function Index() {
         </div>
       </section>
 
-
+      <section id="recensioni" className="py-28 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <span className="text-gold text-xs uppercase tracking-[0.3em]">Cosa dicono di noi</span>
