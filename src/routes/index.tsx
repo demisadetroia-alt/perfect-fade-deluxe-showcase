@@ -4,6 +4,19 @@ import heroImg from "@/assets/hero-barber.jpg";
 import cutImg from "@/assets/service-cut.jpg";
 import beardImg from "@/assets/service-beard.jpg";
 import fadeImg from "@/assets/service-fade.jpg";
+import taglio1 from "@/assets/taglio-1.png.asset.json";
+import taglio2 from "@/assets/taglio-2.png.asset.json";
+import taglio3 from "@/assets/taglio-3.png.asset.json";
+import taglio4 from "@/assets/taglio-4.png.asset.json";
+import taglio5 from "@/assets/taglio-5.png.asset.json";
+
+const gallery = [
+  { src: taglio5.url, label: "Buzz Cut & Fade Alto" },
+  { src: taglio1.url, label: "Ricci con Sfumatura" },
+  { src: taglio2.url, label: "Side Part Classico" },
+  { src: taglio3.url, label: "Pompadour Moderno" },
+  { src: taglio4.url, label: "Taper con Design" },
+];
 
 export const Route = createFileRoute("/")({
   component: Index,
