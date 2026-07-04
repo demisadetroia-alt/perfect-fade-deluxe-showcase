@@ -276,8 +276,8 @@ function Index() {
           </div>
           <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} Sfumatura Perfetta Deluxe · Lucera (FG)</p>
           <div className="flex gap-4 text-muted-foreground">
-            <a href="#" aria-label="Instagram" className="hover:text-gold transition"><Instagram className="w-5 h-5" /></a>
-            <a href="#" aria-label="Facebook" className="hover:text-gold transition"><Facebook className="w-5 h-5" /></a>
+            <a href="https://www.instagram.com/sfumaturaperfetta_deluxe/?hl=it" aria-label="Instagram" className="hover:text-gold transition"><Instagram className="w-5 h-5" /></a>
+            
           </div>
         </div>
       </footer>
