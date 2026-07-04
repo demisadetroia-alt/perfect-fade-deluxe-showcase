@@ -4,6 +4,19 @@ import heroImg from "@/assets/hero-barber.jpg";
 import cutImg from "@/assets/service-cut.jpg";
 import beardImg from "@/assets/service-beard.jpg";
 import fadeImg from "@/assets/service-fade.jpg";
+import taglio1 from "@/assets/taglio-1.png.asset.json";
+import taglio2 from "@/assets/taglio-2.png.asset.json";
+import taglio3 from "@/assets/taglio-3.png.asset.json";
+import taglio4 from "@/assets/taglio-4.png.asset.json";
+import taglio5 from "@/assets/taglio-5.png.asset.json";
+
+const gallery = [
+  { src: taglio5.url, label: "Buzz Cut & Fade Alto" },
+  { src: taglio1.url, label: "Ricci con Sfumatura" },
+  { src: taglio2.url, label: "Side Part Classico" },
+  { src: taglio3.url, label: "Pompadour Moderno" },
+  { src: taglio4.url, label: "Taper con Design" },
+];
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -47,6 +60,7 @@ function Index() {
           </a>
           <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
             <a href="#servizi" className="hover:text-foreground transition">Servizi</a>
+            <a href="#galleria" className="hover:text-foreground transition">Galleria</a>
             <a href="#storia" className="hover:text-foreground transition">Storia</a>
             <a href="#recensioni" className="hover:text-foreground transition">Recensioni</a>
             <a href="#contatti" className="hover:text-foreground transition">Contatti</a>
@@ -152,6 +166,39 @@ function Index() {
             <Stat n="5000+" l="Clienti soddisfatti" />
             <Stat n="5.0★" l="Su Google" />
             <Stat n="10+" l="Anni di passione" />
+          </div>
+        </div>
+      </section>
+
+      {/* Galleria tagli reali */}
+      <section id="galleria" className="py-28 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+            <div>
+              <span className="text-gold text-xs uppercase tracking-[0.3em]">Il nostro lavoro</span>
+              <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold max-w-xl leading-tight">
+                Tagli veri,<br />clienti veri.
+              </h2>
+            </div>
+            <p className="text-muted-foreground max-w-md">
+              Una selezione dei lavori fatti in salone. Ogni cliente, un progetto unico.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
+            {gallery.map((g, i) => (
+              <figure key={i} className="group relative overflow-hidden rounded-lg aspect-[4/5] bg-card border border-border">
+                <img
+                  src={g.src}
+                  alt={g.label}
+                  loading="lazy"
+                  className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-background/95 via-background/60 to-transparent">
+                  <span className="text-xs uppercase tracking-widest text-gold">{g.label}</span>
+                </figcaption>
+              </figure>
+            ))}
           </div>
         </div>
       </section>
