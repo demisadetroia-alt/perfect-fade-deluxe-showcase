@@ -1,20 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useCallback } from "react";
 import { Scissors, Phone, MapPin, Clock, Star, Instagram, ZoomIn, ZoomOut, X } from "lucide-react";
-import heroImg from "@/assets/salone.png";
-import cutImg from "@/assets/foto2.png";
-import beardImg from "@/assets/foto4.png";
-import fadeImg from "@/assets/foto3.jpg";
-import galleryFoto2 from "@/assets/foto2.png";
-import galleryFoto5 from "@/assets/foto5.png";
-import galleryFoto6 from "@/assets/foto6.png";
-import galleryFoto7 from "@/assets/foto7.png";
+const heroImg = "/salone.png";
+const cutImg = "/foto2.png";
+const beardImg = "/foto4.png";
+const fadeImg = "/foto3.jpg";
 
 const gallery = [
-  { src: galleryFoto2, label: "Buzz Cut & Fade Alto" },
-  { src: galleryFoto5, label: "Ricci con Sfumatura" },
-  { src: galleryFoto6, label: "Side Part Classico" },
-  { src: galleryFoto7, label: "Taper con Design" },
+  { src: "/foto2.png", label: "Buzz Cut & Fade Alto" },
+  { src: "/foto5.png", label: "Ricci con Sfumatura" },
+  { src: "/foto6.png", label: "Side Part Classico" },
+  { src: "/foto7.png", label: "Taper con Design" },
 ];
 
 export const Route = createFileRoute("/")({
