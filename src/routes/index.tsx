@@ -162,19 +162,20 @@ function Index() {
 
       <section id="storia" className="py-28 px-6 bg-secondary/30 border-y border-border">
         <div className="max-w-5xl mx-auto text-center">
-          <span className="text-gold text-xs uppercase tracking-[0.3em]">La nostra storia</span>
-          <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold leading-tight">
+          <span className="text-gold text-xs uppercase tracking-[0.3em]" data-reveal>La nostra storia</span>
+          <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold leading-tight" data-reveal data-reveal-delay="1">
             Una barberia nel cuore di Lucera.
           </h2>
-          <p className="mt-8 text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+          <p className="mt-8 text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto" data-reveal data-reveal-delay="2">
             Siamo specializzati sia nei tagli classici <em className="text-foreground">"pettine e forbice"</em> che nei tagli moderni con sfumature all'ultima tendenza. Amanti della cura della barba, offriamo un'esperienza senza limite d'età, dove tradizione e stile contemporaneo si incontrano su ogni poltrona.
           </p>
           <div className="mt-14 grid grid-cols-3 gap-6 max-w-2xl mx-auto">
-            <Stat n="100+" l="Clienti soddisfatti" />
-            <Stat n="5.0★" l="Su Google" />
-            <Stat n="16" l="Recensioni verificate" />
+            <div data-reveal="zoom" data-reveal-delay="1"><Stat n="100+" l="Clienti soddisfatti" /></div>
+            <div data-reveal="zoom" data-reveal-delay="2"><Stat n="5.0★" l="Su Google" /></div>
+            <div data-reveal="zoom" data-reveal-delay="3"><Stat n="16" l="Recensioni verificate" /></div>
           </div>
         </div>
+
       </section>
 
       {/* Galleria tagli reali */}
