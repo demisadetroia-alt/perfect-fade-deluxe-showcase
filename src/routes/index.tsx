@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useCallback } from "react";
 import { Scissors, Phone, MapPin, Clock, Star, Instagram, ZoomIn, ZoomOut, X } from "lucide-react";
+import { useReveal } from "@/hooks/use-reveal";
+
 const heroImg = "/salone.png";
 const cutImg = "/foto2.png";
 const beardImg = "/foto4.png";
@@ -47,6 +49,7 @@ const reviews = [
 function Index() {
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [zoom, setZoom] = useState(1);
+  useReveal();
 
   const openLightbox = useCallback((i: number) => { setLightbox(i); setZoom(1); }, []);
   const closeLightbox = useCallback(() => { setLightbox(null); setZoom(1); }, []);
@@ -126,20 +129,21 @@ function Index() {
       <section id="servizi" className="py-28 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-            <div>
+            <div data-reveal="left">
               <span className="text-gold text-xs uppercase tracking-[0.3em]">I nostri servizi</span>
               <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold max-w-xl leading-tight">
                 Ogni dettaglio,<br />al posto giusto.
               </h2>
             </div>
-            <p className="text-muted-foreground max-w-md">
+            <p className="text-muted-foreground max-w-md" data-reveal="right">
               Tre servizi, un solo standard: quello di Marco. Perché la differenza tra un buon taglio e un taglio perfetto è nei millimetri.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {services.map((s) => (
-              <article key={s.title} className="group relative overflow-hidden rounded-lg bg-card border border-border">
+            {services.map((s, i) => (
+              <article key={s.title} data-reveal data-reveal-delay={i + 1} className="group relative overflow-hidden rounded-lg bg-card border border-border">
+
                 <div className="aspect-[4/5] overflow-hidden">
                   <img src={s.img} alt={s.title} width={1000} height={1200} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
                 </div>
@@ -158,32 +162,33 @@ function Index() {
 
       <section id="storia" className="py-28 px-6 bg-secondary/30 border-y border-border">
         <div className="max-w-5xl mx-auto text-center">
-          <span className="text-gold text-xs uppercase tracking-[0.3em]">La nostra storia</span>
-          <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold leading-tight">
+          <span className="text-gold text-xs uppercase tracking-[0.3em]" data-reveal>La nostra storia</span>
+          <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold leading-tight" data-reveal data-reveal-delay="1">
             Una barberia nel cuore di Lucera.
           </h2>
-          <p className="mt-8 text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+          <p className="mt-8 text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto" data-reveal data-reveal-delay="2">
             Siamo specializzati sia nei tagli classici <em className="text-foreground">"pettine e forbice"</em> che nei tagli moderni con sfumature all'ultima tendenza. Amanti della cura della barba, offriamo un'esperienza senza limite d'età, dove tradizione e stile contemporaneo si incontrano su ogni poltrona.
           </p>
           <div className="mt-14 grid grid-cols-3 gap-6 max-w-2xl mx-auto">
-            <Stat n="100+" l="Clienti soddisfatti" />
-            <Stat n="5.0★" l="Su Google" />
-            <Stat n="16" l="Recensioni verificate" />
+            <div data-reveal="zoom" data-reveal-delay="1"><Stat n="100+" l="Clienti soddisfatti" /></div>
+            <div data-reveal="zoom" data-reveal-delay="2"><Stat n="5.0★" l="Su Google" /></div>
+            <div data-reveal="zoom" data-reveal-delay="3"><Stat n="16" l="Recensioni verificate" /></div>
           </div>
         </div>
+
       </section>
 
       {/* Galleria tagli reali */}
       <section id="galleria" className="py-28 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-            <div>
+            <div data-reveal="left">
               <span className="text-gold text-xs uppercase tracking-[0.3em]">Il nostro lavoro</span>
               <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold max-w-xl leading-tight">
                 Tagli veri,<br />clienti veri.
               </h2>
             </div>
-            <p className="text-muted-foreground max-w-md">
+            <p className="text-muted-foreground max-w-md" data-reveal="right">
               Una selezione dei lavori fatti in salone. Ogni cliente, un progetto unico.
             </p>
           </div>
@@ -192,6 +197,8 @@ function Index() {
             {gallery.map((g, i) => (
               <figure
                 key={i}
+                data-reveal="zoom"
+                data-reveal-delay={(i % 4) + 1}
                 className="group relative overflow-hidden rounded-xl aspect-[3/4] bg-card border border-border cursor-zoom-in"
                 onClick={() => openLightbox(i)}
               >
@@ -210,6 +217,7 @@ function Index() {
               </figure>
             ))}
           </div>
+
         </div>
       </section>
 
@@ -252,12 +260,12 @@ function Index() {
       <section id="recensioni" className="py-28 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-gold text-xs uppercase tracking-[0.3em]">Cosa dicono di noi</span>
-            <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold">Le parole dei nostri clienti.</h2>
+            <span className="text-gold text-xs uppercase tracking-[0.3em]" data-reveal>Cosa dicono di noi</span>
+            <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold" data-reveal data-reveal-delay="1">Le parole dei nostri clienti.</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
-            {reviews.map((r) => (
-              <blockquote key={r.name} className="bg-card border border-border rounded-lg p-8">
+            {reviews.map((r, idx) => (
+              <blockquote key={r.name} data-reveal data-reveal-delay={idx + 1} className="bg-card border border-border rounded-lg p-8">
                 <div className="flex gap-1 mb-4">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-gold text-gold" />
@@ -276,7 +284,7 @@ function Index() {
 
       <section id="contatti" className="py-28 px-6 bg-secondary/30 border-t border-border">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16">
-          <div>
+          <div data-reveal="left">
             <span className="text-gold text-xs uppercase tracking-[0.3em]">Prenota il tuo posto</span>
             <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold leading-tight">
               La tua poltrona<br />ti sta aspettando.
@@ -297,7 +305,8 @@ function Index() {
             </div>
           </div>
 
-          <div className="bg-card border border-border rounded-lg p-8">
+          <div className="bg-card border border-border rounded-lg p-8" data-reveal="right">
+
             <div className="flex items-center gap-3 mb-6">
               <Clock className="w-5 h-5 text-gold" />
               <h3 className="font-display text-2xl">Orari di apertura</h3>
