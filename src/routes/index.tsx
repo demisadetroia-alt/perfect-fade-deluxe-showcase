@@ -1,21 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Scissors, Phone, MapPin, Clock, Star, Instagram, Facebook } from "lucide-react";
-import heroImg from "@/assets/hero-barber.jpg";
-import cutImg from "@/assets/service-cut.jpg";
-import beardImg from "@/assets/service-beard.jpg";
-import fadeImg from "@/assets/service-fade.jpg";
-import taglio1 from "@/assets/taglio-1.png.asset.json";
-import taglio2 from "@/assets/taglio-2.png.asset.json";
-import taglio3 from "@/assets/taglio-3.png.asset.json";
-import taglio4 from "@/assets/taglio-4.png.asset.json";
-import taglio5 from "@/assets/taglio-5.png.asset.json";
+import { useState, useCallback } from "react";
+import { Scissors, Phone, MapPin, Clock, Star, Instagram, ZoomIn, ZoomOut, X } from "lucide-react";
+import heroImg from "@/assets/salone.png";
+import cutImg from "@/assets/foto2.png";
+import beardImg from "@/assets/foto4.png";
+import fadeImg from "@/assets/foto3.jpg";
+import galleryFoto2 from "@/assets/foto2.png";
+import galleryFoto5 from "@/assets/foto5.png";
+import galleryFoto6 from "@/assets/foto6.png";
+import galleryFoto7 from "@/assets/foto7.png";
 
 const gallery = [
-  { src: taglio5.url, label: "Buzz Cut & Fade Alto" },
-  { src: taglio1.url, label: "Ricci con Sfumatura" },
-  { src: taglio2.url, label: "Side Part Classico" },
-  { src: taglio3.url, label: "Pompadour Moderno" },
-  { src: taglio4.url, label: "Taper con Design" },
+  { src: galleryFoto2, label: "Buzz Cut & Fade Alto" },
+  { src: galleryFoto5, label: "Ricci con Sfumatura" },
+  { src: galleryFoto6, label: "Side Part Classico" },
+  { src: galleryFoto7, label: "Taper con Design" },
 ];
 
 export const Route = createFileRoute("/")({
@@ -39,7 +38,7 @@ const hours = [
 
 const services = [
   { title: "Taglio Classico", desc: "Pettine e forbice, la tradizione italiana con mano ferma e occhio sartoriale.", img: cutImg, price: "da €15" },
-  { title: "Sfumatura Deluxe", desc: "Fade all'ultima tendenza, transizioni impeccabili e definizione millimetrica.", img: fadeImg, price: "da €18" },
+  { title: "Taglio Barba", desc: "Fade all'ultima tendenza, transizioni impeccabili e definizione millimetrica.", img: fadeImg, price: "da €14" },
   { title: "Cura della Barba", desc: "Rifinitura con rasoio, olii e trattamenti dedicati. Senza limite d'età.", img: beardImg, price: "da €12" },
 ];
 
@@ -50,6 +49,14 @@ const reviews = [
 ];
 
 function Index() {
+  const [lightbox, setLightbox] = useState<number | null>(null);
+  const [zoom, setZoom] = useState(1);
+
+  const openLightbox = useCallback((i: number) => { setLightbox(i); setZoom(1); }, []);
+  const closeLightbox = useCallback(() => { setLightbox(null); setZoom(1); }, []);
+  const zoomIn = useCallback((e: React.MouseEvent) => { e.stopPropagation(); setZoom((z) => Math.min(z + 0.25, 3)); }, []);
+  const zoomOut = useCallback((e: React.MouseEvent) => { e.stopPropagation(); setZoom((z) => Math.max(z - 0.25, 0.5)); }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="absolute top-0 left-0 right-0 z-30">
@@ -81,9 +88,9 @@ function Index() {
               <span className="h-px w-10 bg-gold" />
               <span className="text-gold text-xs uppercase tracking-[0.3em]">Barberia · Lucera</span>
             </div>
-            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.95]">
-              Lo stile <br />non è un caso.<br />
-              <span className="italic text-gold">È artigianato.</span>
+            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-tight text-center">
+              Lo stile<br />non è un caso.<br />
+              <span className="italic text-gold block mt-4">È artigianato.</span>
             </h1>
             <p className="mt-8 text-lg text-muted-foreground max-w-xl leading-relaxed">
               Nel cuore del centro storico di Lucera, Marco firma tagli classici pettine e forbice e sfumature all'ultima tendenza. Un'esperienza senza limite d'età.
@@ -163,9 +170,9 @@ function Index() {
             Siamo specializzati sia nei tagli classici <em className="text-foreground">"pettine e forbice"</em> che nei tagli moderni con sfumature all'ultima tendenza. Amanti della cura della barba, offriamo un'esperienza senza limite d'età, dove tradizione e stile contemporaneo si incontrano su ogni poltrona.
           </p>
           <div className="mt-14 grid grid-cols-3 gap-6 max-w-2xl mx-auto">
-            <Stat n="5000+" l="Clienti soddisfatti" />
+            <Stat n="100+" l="Clienti soddisfatti" />
             <Stat n="5.0★" l="Su Google" />
-            <Stat n="10+" l="Anni di passione" />
+            <Stat n="16" l="Recensioni verificate" />
           </div>
         </div>
       </section>
@@ -185,23 +192,66 @@ function Index() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {gallery.map((g, i) => (
-              <figure key={i} className="group relative overflow-hidden rounded-lg aspect-[4/5] bg-card border border-border">
+              <figure
+                key={i}
+                className="group relative overflow-hidden rounded-xl aspect-[3/4] bg-card border border-border cursor-zoom-in"
+                onClick={() => openLightbox(i)}
+              >
                 <img
                   src={g.src}
                   alt={g.label}
                   loading="lazy"
                   className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
                 />
-                <figcaption className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-background/95 via-background/60 to-transparent">
-                  <span className="text-xs uppercase tracking-widest text-gold">{g.label}</span>
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition duration-300 flex items-center justify-center">
+                  <ZoomIn className="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition duration-300 drop-shadow-lg" />
+                </div>
+                <figcaption className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-background/95 via-background/60 to-transparent">
+                  <span className="text-sm uppercase tracking-widest text-gold font-medium">{g.label}</span>
                 </figcaption>
               </figure>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Lightbox */}
+      {lightbox !== null && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
+          onClick={closeLightbox}
+        >
+          <div className="relative flex items-center justify-center w-full h-full" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={gallery[lightbox].src}
+              alt={gallery[lightbox].label}
+              style={{ transform: `scale(${zoom})`, transition: "transform 0.2s ease", maxHeight: "90vh", maxWidth: "90vw", objectFit: "contain" }}
+            />
+          </div>
+          {/* Controlli */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-black/60 rounded-full px-6 py-3">
+            <button onClick={zoomOut} className="text-white hover:text-gold transition" aria-label="Riduci zoom">
+              <ZoomOut className="w-6 h-6" />
+            </button>
+            <span className="text-white text-sm w-12 text-center">{Math.round(zoom * 100)}%</span>
+            <button onClick={zoomIn} className="text-white hover:text-gold transition" aria-label="Aumenta zoom">
+              <ZoomIn className="w-6 h-6" />
+            </button>
+          </div>
+          <button
+            onClick={closeLightbox}
+            className="absolute top-4 right-4 text-white hover:text-gold transition bg-black/40 rounded-full p-2"
+            aria-label="Chiudi"
+          >
+            <X className="w-6 h-6" />
+          </button>
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 text-xs uppercase tracking-widest text-gold">
+            {gallery[lightbox].label}
+          </div>
+        </div>
+      )}
 
       <section id="recensioni" className="py-28 px-6">
         <div className="max-w-7xl mx-auto">
