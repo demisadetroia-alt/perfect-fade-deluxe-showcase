@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useCallback } from "react";
 import { Scissors, Phone, MapPin, Clock, Star, Instagram, ZoomIn, ZoomOut, X } from "lucide-react";
+import { useReveal } from "@/hooks/use-reveal";
+
 const heroImg = "/salone.png";
 const cutImg = "/foto2.png";
 const beardImg = "/foto4.png";
