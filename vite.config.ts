@@ -1,7 +1,7 @@
 // Static build config for GitHub Pages.
-// - nitro preset "static" prerenders HTML at build time.
-// - prerender crawls "/" so index.html is generated.
-// - after build, static files live in .output/public and are copied to /dist by the GH Actions workflow.
+// nitro preset "static" prerenders HTML at build time.
+// prerender routes cast to any because the wrapper's TS types are conservative,
+// but nitro accepts the option at runtime.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
@@ -10,6 +10,7 @@ export default defineConfig({
   },
   nitro: {
     preset: "static",
+    // @ts-expect-error nitro accepts prerender at runtime; wrapper types don't expose it
     prerender: {
       crawlLinks: true,
       routes: ["/"],
