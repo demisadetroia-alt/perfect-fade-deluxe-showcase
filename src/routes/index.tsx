@@ -260,12 +260,12 @@ function Index() {
       <section id="recensioni" className="py-28 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-gold text-xs uppercase tracking-[0.3em]">Cosa dicono di noi</span>
-            <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold">Le parole dei nostri clienti.</h2>
+            <span className="text-gold text-xs uppercase tracking-[0.3em]" data-reveal>Cosa dicono di noi</span>
+            <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold" data-reveal data-reveal-delay="1">Le parole dei nostri clienti.</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
-            {reviews.map((r) => (
-              <blockquote key={r.name} className="bg-card border border-border rounded-lg p-8">
+            {reviews.map((r, idx) => (
+              <blockquote key={r.name} data-reveal data-reveal-delay={idx + 1} className="bg-card border border-border rounded-lg p-8">
                 <div className="flex gap-1 mb-4">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-gold text-gold" />
@@ -284,7 +284,7 @@ function Index() {
 
       <section id="contatti" className="py-28 px-6 bg-secondary/30 border-t border-border">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16">
-          <div>
+          <div data-reveal="left">
             <span className="text-gold text-xs uppercase tracking-[0.3em]">Prenota il tuo posto</span>
             <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold leading-tight">
               La tua poltrona<br />ti sta aspettando.
@@ -305,7 +305,8 @@ function Index() {
             </div>
           </div>
 
-          <div className="bg-card border border-border rounded-lg p-8">
+          <div className="bg-card border border-border rounded-lg p-8" data-reveal="right">
+
             <div className="flex items-center gap-3 mb-6">
               <Clock className="w-5 h-5 text-gold" />
               <h3 className="font-display text-2xl">Orari di apertura</h3>
