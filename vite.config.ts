@@ -1,9 +1,7 @@
-// @lovable.dev/vite-tanstack-config already includes the following — do NOT add them manually
-// or the app will break with duplicate plugins:
-//   - tanstackStart, viteReact, tailwindcss, tsConfigPaths, nitro (build-only using cloudflare as a default target),
-//     componentTagger (dev-only), VITE_* env injection, @ path alias, React/TanStack dedupe,
-//     error logger plugins, and sandbox detection (port/host/strictPort).
-// You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
+// Static build config for GitHub Pages.
+// nitro preset "static" prerenders HTML at build time.
+// prerender routes cast to any because the wrapper's TS types are conservative,
+// but nitro accepts the option at runtime.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
@@ -11,7 +9,12 @@ export default defineConfig({
     server: { entry: "server" },
   },
   nitro: {
-    preset: "node-server",
+    preset: "static",
+    // @ts-expect-error nitro accepts prerender at runtime; wrapper types don't expose it
+    prerender: {
+      crawlLinks: true,
+      routes: ["/"],
+    },
   },
   vite: {
     server: {
