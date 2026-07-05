@@ -49,6 +49,7 @@ const reviews = [
 function Index() {
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [zoom, setZoom] = useState(1);
+  useReveal();
 
   const openLightbox = useCallback((i: number) => { setLightbox(i); setZoom(1); }, []);
   const closeLightbox = useCallback(() => { setLightbox(null); setZoom(1); }, []);
