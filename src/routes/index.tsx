@@ -182,13 +182,13 @@ function Index() {
       <section id="galleria" className="py-28 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-            <div>
+            <div data-reveal="left">
               <span className="text-gold text-xs uppercase tracking-[0.3em]">Il nostro lavoro</span>
               <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold max-w-xl leading-tight">
                 Tagli veri,<br />clienti veri.
               </h2>
             </div>
-            <p className="text-muted-foreground max-w-md">
+            <p className="text-muted-foreground max-w-md" data-reveal="right">
               Una selezione dei lavori fatti in salone. Ogni cliente, un progetto unico.
             </p>
           </div>
@@ -197,6 +197,8 @@ function Index() {
             {gallery.map((g, i) => (
               <figure
                 key={i}
+                data-reveal="zoom"
+                data-reveal-delay={(i % 4) + 1}
                 className="group relative overflow-hidden rounded-xl aspect-[3/4] bg-card border border-border cursor-zoom-in"
                 onClick={() => openLightbox(i)}
               >
@@ -215,6 +217,7 @@ function Index() {
               </figure>
             ))}
           </div>
+
         </div>
       </section>
 
