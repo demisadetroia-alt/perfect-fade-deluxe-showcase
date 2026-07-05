@@ -129,20 +129,21 @@ function Index() {
       <section id="servizi" className="py-28 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-            <div>
+            <div data-reveal="left">
               <span className="text-gold text-xs uppercase tracking-[0.3em]">I nostri servizi</span>
               <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold max-w-xl leading-tight">
                 Ogni dettaglio,<br />al posto giusto.
               </h2>
             </div>
-            <p className="text-muted-foreground max-w-md">
+            <p className="text-muted-foreground max-w-md" data-reveal="right">
               Tre servizi, un solo standard: quello di Marco. Perché la differenza tra un buon taglio e un taglio perfetto è nei millimetri.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {services.map((s) => (
-              <article key={s.title} className="group relative overflow-hidden rounded-lg bg-card border border-border">
+            {services.map((s, i) => (
+              <article key={s.title} data-reveal data-reveal-delay={i + 1} className="group relative overflow-hidden rounded-lg bg-card border border-border">
+
                 <div className="aspect-[4/5] overflow-hidden">
                   <img src={s.img} alt={s.title} width={1000} height={1200} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
                 </div>
