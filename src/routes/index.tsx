@@ -195,12 +195,8 @@ function Index() {
             <a href="#recensioni" className="hover:text-foreground transition">Recensioni</a>
             <a href="#dove-siamo" className="hover:text-foreground transition">Dove Siamo</a>
           </nav>
-          <a
-            href={PHONE_LINK}
-            className="inline-flex items-center gap-2 rounded-full border border-gold/40 text-gold px-4 py-2 text-sm hover:bg-gold hover:text-primary-foreground transition"
-          >
-            <Phone className="w-4 h-4" />
-            <span className="hidden sm:inline">Prenota</span>
+          <a href="#top">
+            <img src="/logo.jpeg" alt="Sfumatura Perfetta Deluxe" className="h-10 w-10 rounded-full object-cover" />
           </a>
         </div>
       </header>
