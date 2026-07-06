@@ -244,7 +244,7 @@ function Index() {
               target="_blank"
               rel="noreferrer"
               onClick={() => setMenuOpen(false)}
-              className="mt-2 inline-flex items-center gap-2 bg-[#25D366] text-white px-5 py-3 rounded-full font-medium w-fit"
+              className="mt-2 inline-flex items-center gap-2 bg-background border border-gold/40 text-gold px-5 py-3 rounded-full font-medium w-fit hover:bg-gold hover:text-primary-foreground transition"
             >
               <WhatsAppIcon className="w-5 h-5" /> Prenota su WhatsApp
             </a>
@@ -587,7 +587,7 @@ function Index() {
               href={WHATSAPP_LINK}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-[#25D366] text-white px-8 py-4 rounded-full font-medium hover:opacity-90 transition"
+              className="inline-flex items-center justify-center gap-2 bg-background border border-gold/40 text-gold px-8 py-4 rounded-full font-medium hover:bg-gold hover:text-primary-foreground transition"
             >
               <WhatsAppIcon className="w-5 h-5" /> Scrivi su WhatsApp
             </a>
@@ -608,7 +608,7 @@ function Index() {
               </a>
             </InfoRow>
             <InfoRow
-              icon={<WhatsAppIcon className="w-5 h-5 text-[#25D366]" />}
+              icon={<WhatsAppIcon className="w-5 h-5 text-gold" />}
               title="WhatsApp"
             >
               <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="hover:text-gold transition">
@@ -624,7 +624,7 @@ function Index() {
         href={WHATSAPP_LINK}
         target="_blank"
         rel="noreferrer"
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#25D366] text-white px-5 py-3 rounded-full shadow-lg hover:opacity-90 transition font-medium text-sm"
+        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-background border border-gold/40 text-gold px-5 py-3 rounded-full shadow-lg hover:bg-gold hover:text-primary-foreground transition font-medium text-sm"
         aria-label="Prenota su WhatsApp"
       >
         <WhatsAppIcon className="w-5 h-5" />
