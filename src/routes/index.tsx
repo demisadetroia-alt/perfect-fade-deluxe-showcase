@@ -233,14 +233,8 @@ function Index() {
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <a
-                href={PHONE_LINK}
-                className="inline-flex items-center gap-2 gradient-gold text-primary-foreground px-8 py-4 rounded-full font-medium shadow-gold hover:opacity-90 transition"
-              >
-                <Phone className="w-4 h-4" /> Chiama {PHONE}
-              </a>
-              <a
                 href="#servizi"
-                className="inline-flex items-center gap-2 border border-border px-8 py-4 rounded-full font-medium hover:border-gold hover:text-gold transition"
+                className="inline-flex items-center gap-2 gradient-gold text-primary-foreground px-8 py-4 rounded-full font-medium shadow-gold hover:opacity-90 transition"
               >
                 Scopri i servizi
               </a>
@@ -351,28 +345,6 @@ function Index() {
           </div>
         </div>
       </section>
-
-      {/* ── CTA dopo i prezzi ── */}
-      <FadeIn>
-        <div className="py-16 px-6 bg-gradient-to-r from-gold/10 via-gold/5 to-gold/10 border-y border-gold/20">
-          <div className="max-w-3xl mx-auto text-center">
-            <h3 className="font-display text-3xl md:text-4xl font-bold">
-              Hai visto quello che facciamo.<br />
-              <span className="text-gold">Adesso prenota il tuo posto.</span>
-            </h3>
-            <p className="mt-4 text-muted-foreground">
-              Chiamaci per fissare un appuntamento. Ti consigliamo di prenotare
-              in anticipo, soprattutto nel weekend.
-            </p>
-            <a
-              href={PHONE_LINK}
-              className="mt-8 inline-flex items-center gap-3 gradient-gold text-primary-foreground px-8 py-4 rounded-full font-medium shadow-gold hover:opacity-90 transition"
-            >
-              <Phone className="w-5 h-5" /> Chiama: {PHONE}
-            </a>
-          </div>
-        </div>
-      </FadeIn>
 
       {/* ── Galleria ── */}
       <section id="galleria" className="py-28 px-6">
@@ -598,26 +570,10 @@ function Index() {
         </div>
       </section>
 
-      {/* ── Footer con CTA finale ── */}
-      <footer className="border-t border-border pt-16 pb-10 px-6 bg-secondary/20">
+      {/* ── Footer ── */}
+      <footer className="border-t border-border py-10 px-6 bg-secondary/20">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h3 className="font-display text-3xl md:text-4xl font-bold">
-              La tua poltrona<br />
-              <span className="text-gold">ti sta aspettando.</span>
-            </h3>
-            <p className="mt-4 text-muted-foreground">
-              Prenota il tuo appuntamento oggi.
-            </p>
-            <a
-              href={PHONE_LINK}
-              className="mt-8 inline-flex items-center gap-3 gradient-gold text-primary-foreground px-8 py-4 rounded-full font-medium shadow-gold hover:opacity-90 transition"
-            >
-              <Phone className="w-5 h-5" /> Prenota ora — {PHONE}
-            </a>
-          </div>
-
-          <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-2">
               <Scissors className="w-5 h-5 text-gold" />
               <span className="font-display">
