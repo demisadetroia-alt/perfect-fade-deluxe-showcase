@@ -242,12 +242,19 @@ function Index() {
                 {label}
               </a>
             ))}
+            <Link
+              to="/prenota"
+              onClick={() => setMenuOpen(false)}
+              className="mt-2 inline-flex items-center gap-2 gradient-gold text-primary-foreground px-5 py-3 rounded-full font-medium w-fit shadow-gold"
+            >
+              <CalendarCheck className="w-5 h-5" /> Prenota online
+            </Link>
             <a
               href={WHATSAPP_LINK}
               target="_blank"
               rel="noreferrer"
               onClick={() => setMenuOpen(false)}
-              className="mt-2 inline-flex items-center gap-2 bg-background border border-gold/40 text-gold px-5 py-3 rounded-full font-medium w-fit hover:bg-gold hover:text-primary-foreground transition"
+              className="inline-flex items-center gap-2 bg-background border border-gold/40 text-gold px-5 py-3 rounded-full font-medium w-fit hover:bg-gold hover:text-primary-foreground transition"
             >
               <WhatsAppIcon className="w-5 h-5" /> Prenota su WhatsApp
             </a>
