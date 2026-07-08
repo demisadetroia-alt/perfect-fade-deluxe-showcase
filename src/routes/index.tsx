@@ -1,8 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useCallback, useEffect, useRef } from "react";
 import {
   Scissors, Phone, MapPin, Clock, Star, Instagram,
-  ZoomIn, ZoomOut, X, Award, Gem, Sparkles, Navigation, Menu,
+  ZoomIn, ZoomOut, X, Award, Gem, Sparkles, Navigation, Menu, CalendarCheck,
 } from "lucide-react";
 
 function WhatsAppIcon({ className }: { className?: string }) {
@@ -204,6 +204,9 @@ function Index() {
             <a href="#galleria" className="hover:text-foreground transition">Galleria</a>
             <a href="#recensioni" className="hover:text-foreground transition">Recensioni</a>
             <a href="#dove-siamo" className="hover:text-foreground transition">Dove Siamo</a>
+            <Link to="/prenota" className="inline-flex items-center gap-1.5 text-gold hover:text-gold-soft transition font-medium">
+              <CalendarCheck className="w-4 h-4" /> Prenota
+            </Link>
           </nav>
           <div className="flex items-center gap-3">
             <button
@@ -239,12 +242,19 @@ function Index() {
                 {label}
               </a>
             ))}
+            <Link
+              to="/prenota"
+              onClick={() => setMenuOpen(false)}
+              className="mt-2 inline-flex items-center gap-2 gradient-gold text-primary-foreground px-5 py-3 rounded-full font-medium w-fit shadow-gold"
+            >
+              <CalendarCheck className="w-5 h-5" /> Prenota online
+            </Link>
             <a
               href={WHATSAPP_LINK}
               target="_blank"
               rel="noreferrer"
               onClick={() => setMenuOpen(false)}
-              className="mt-2 inline-flex items-center gap-2 bg-background border border-gold/40 text-gold px-5 py-3 rounded-full font-medium w-fit hover:bg-gold hover:text-primary-foreground transition"
+              className="inline-flex items-center gap-2 bg-background border border-gold/40 text-gold px-5 py-3 rounded-full font-medium w-fit hover:bg-gold hover:text-primary-foreground transition"
             >
               <WhatsAppIcon className="w-5 h-5" /> Prenota su WhatsApp
             </a>
@@ -279,9 +289,15 @@ function Index() {
               senza limite d'età.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
+              <Link
+                to="/prenota"
+                className="inline-flex items-center gap-2 gradient-gold text-primary-foreground px-8 py-4 rounded-full font-medium shadow-gold hover:opacity-90 transition"
+              >
+                <CalendarCheck className="w-5 h-5" /> Prenota online
+              </Link>
               <a
                 href="#servizi"
-                className="inline-flex items-center gap-2 gradient-gold text-primary-foreground px-8 py-4 rounded-full font-medium shadow-gold hover:opacity-90 transition"
+                className="inline-flex items-center gap-2 border border-gold/40 text-gold px-8 py-4 rounded-full font-medium hover:bg-gold/10 transition"
               >
                 Scopri i servizi
               </a>
