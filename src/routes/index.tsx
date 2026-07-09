@@ -249,15 +249,6 @@ function Index() {
             >
               <CalendarCheck className="w-5 h-5" /> Prenota online
             </Link>
-            <a
-              href={WHATSAPP_LINK}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => setMenuOpen(false)}
-              className="inline-flex items-center gap-2 bg-background border border-gold/40 text-gold px-5 py-3 rounded-full font-medium w-fit hover:bg-gold hover:text-primary-foreground transition"
-            >
-              <WhatsAppIcon className="w-5 h-5" /> Prenota su WhatsApp
-            </a>
           </div>
         )}
       </header>
