@@ -227,6 +227,11 @@ function PrenotaPage() {
           </Link>
           <div className="flex items-center gap-4">
             {userName && <span className="text-sm text-muted-foreground hidden sm:inline">Ciao, {userName}</span>}
+            {isAdmin && (
+              <Link to="/admin" className="inline-flex items-center gap-1.5 text-sm text-gold hover:text-gold-soft transition">
+                <ShieldCheck className="w-4 h-4" /> Admin
+              </Link>
+            )}
             <button onClick={handleLogout} className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-gold transition">
               <LogOut className="w-4 h-4" /> Esci
             </button>
@@ -318,7 +323,10 @@ function PrenotaPage() {
           </h2>
           <div className="flex gap-2 overflow-x-auto pb-2 -mx-6 px-6">
             {dates.map((d, i) => {
-              const isClosed = OPEN_HOURS[d.getDay()].length === 0;
+              const key = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+              const isWeeklyClosed = OPEN_HOURS[d.getDay()].length === 0;
+              const isCustomClosed = closedDays.has(key);
+              const isClosed = isWeeklyClosed || isCustomClosed;
               const isSelected = i === selectedDateIdx;
               return (
                 <button
@@ -328,6 +336,7 @@ function PrenotaPage() {
                     setSelectedSlot(null);
                   }}
                   disabled={isClosed}
+                  title={isCustomClosed ? `Chiuso: ${closedInfo[key] || "giorno di chiusura"}` : undefined}
                   className={`shrink-0 w-20 py-3 rounded-lg border text-center transition ${
                     isSelected
                       ? "border-gold bg-gold/10"
@@ -355,7 +364,11 @@ function PrenotaPage() {
           <p className="text-sm text-muted-foreground mb-4 capitalize">
             {formatDateHeading(selectedDate)}
           </p>
-          {slots.length === 0 ? (
+          {selectedDateClosed ? (
+            <p className="text-muted-foreground text-sm bg-card border border-border rounded-lg p-4">
+              Salone chiuso in questa data{closedInfo[selectedDateKey] ? ` — ${closedInfo[selectedDateKey]}` : ""}.
+            </p>
+          ) : slots.length === 0 ? (
             <p className="text-muted-foreground text-sm">Nessuno slot disponibile per questa giornata.</p>
           ) : (
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
