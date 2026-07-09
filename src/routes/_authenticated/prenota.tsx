@@ -1,8 +1,9 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, useCallback } from "react";
-import { Scissors, ArrowLeft, LogOut, Calendar, Clock, AlertTriangle, Trash2, CheckCircle2 } from "lucide-react";
+import { Scissors, ArrowLeft, LogOut, Calendar, Clock, AlertTriangle, Trash2, CheckCircle2, ShieldCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+
 
 export const Route = createFileRoute("/_authenticated/prenota")({
   head: () => ({
@@ -97,7 +98,10 @@ function PrenotaPage() {
   const navigate = useNavigate();
   const [userId, setUserId] = useState<string | null>(null);
   const [userName, setUserName] = useState<string>("");
+  const [isAdmin, setIsAdmin] = useState(false);
   const [bookings, setBookings] = useState<Booking[]>([]);
+  const [closedDays, setClosedDays] = useState<Set<string>>(new Set());
+  const [closedInfo, setClosedInfo] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
   const [selectedService, setSelectedService] = useState(SERVICES[0].key);
   const [selectedDateIdx, setSelectedDateIdx] = useState(0);
@@ -116,14 +120,24 @@ function PrenotaPage() {
     }
     setUserId(userData.user.id);
 
-    const [{ data: profileData }, { data: bookingsData, error }] = await Promise.all([
+    const [{ data: profileData }, { data: bookingsData, error }, { data: closedData }, { data: rolesData }] = await Promise.all([
       supabase.from("profiles").select("name").eq("id", userData.user.id).maybeSingle(),
       supabase.from("bookings").select("id, service, start_time, user_id").order("start_time"),
+      supabase.from("closed_days").select("day, reason"),
+      supabase.from("user_roles").select("role").eq("user_id", userData.user.id),
     ]);
 
     if (profileData?.name) setUserName(profileData.name);
     if (error) toast.error("Impossibile caricare le prenotazioni");
     else setBookings(bookingsData ?? []);
+
+    const set = new Set<string>();
+    const info: Record<string, string> = {};
+    (closedData ?? []).forEach((c) => { set.add(c.day); info[c.day] = c.reason; });
+    setClosedDays(set);
+    setClosedInfo(info);
+    setIsAdmin(!!rolesData?.some((r) => r.role === "admin"));
+
     setLoading(false);
   }, [navigate]);
 
@@ -142,7 +156,13 @@ function PrenotaPage() {
   );
 
   const selectedDate = dates[selectedDateIdx];
-  const slots = useMemo(() => buildSlotsForDate(selectedDate), [selectedDate]);
+  const selectedDateKey = `${selectedDate.getFullYear()}-${pad(selectedDate.getMonth() + 1)}-${pad(selectedDate.getDate())}`;
+  const selectedDateClosed = closedDays.has(selectedDateKey);
+  const slots = useMemo(
+    () => (selectedDateClosed ? [] : buildSlotsForDate(selectedDate)),
+    [selectedDate, selectedDateClosed]
+  );
+
 
   async function handleLogout() {
     await supabase.auth.signOut();
