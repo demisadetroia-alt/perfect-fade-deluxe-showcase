@@ -1,8 +1,9 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, useCallback } from "react";
-import { Scissors, ArrowLeft, LogOut, Calendar, Clock, AlertTriangle, Trash2, CheckCircle2 } from "lucide-react";
+import { Scissors, ArrowLeft, LogOut, Calendar, Clock, AlertTriangle, Trash2, CheckCircle2, ShieldCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+
 
 export const Route = createFileRoute("/_authenticated/prenota")({
   head: () => ({
@@ -97,7 +98,10 @@ function PrenotaPage() {
   const navigate = useNavigate();
   const [userId, setUserId] = useState<string | null>(null);
   const [userName, setUserName] = useState<string>("");
+  const [isAdmin, setIsAdmin] = useState(false);
   const [bookings, setBookings] = useState<Booking[]>([]);
+  const [closedDays, setClosedDays] = useState<Set<string>>(new Set());
+  const [closedInfo, setClosedInfo] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
   const [selectedService, setSelectedService] = useState(SERVICES[0].key);
   const [selectedDateIdx, setSelectedDateIdx] = useState(0);
@@ -116,14 +120,24 @@ function PrenotaPage() {
     }
     setUserId(userData.user.id);
 
-    const [{ data: profileData }, { data: bookingsData, error }] = await Promise.all([
+    const [{ data: profileData }, { data: bookingsData, error }, { data: closedData }, { data: rolesData }] = await Promise.all([
       supabase.from("profiles").select("name").eq("id", userData.user.id).maybeSingle(),
       supabase.from("bookings").select("id, service, start_time, user_id").order("start_time"),
+      supabase.from("closed_days").select("day, reason"),
+      supabase.from("user_roles").select("role").eq("user_id", userData.user.id),
     ]);
 
     if (profileData?.name) setUserName(profileData.name);
     if (error) toast.error("Impossibile caricare le prenotazioni");
     else setBookings(bookingsData ?? []);
+
+    const set = new Set<string>();
+    const info: Record<string, string> = {};
+    (closedData ?? []).forEach((c) => { set.add(c.day); info[c.day] = c.reason; });
+    setClosedDays(set);
+    setClosedInfo(info);
+    setIsAdmin(!!rolesData?.some((r) => r.role === "admin"));
+
     setLoading(false);
   }, [navigate]);
 
@@ -142,7 +156,13 @@ function PrenotaPage() {
   );
 
   const selectedDate = dates[selectedDateIdx];
-  const slots = useMemo(() => buildSlotsForDate(selectedDate), [selectedDate]);
+  const selectedDateKey = `${selectedDate.getFullYear()}-${pad(selectedDate.getMonth() + 1)}-${pad(selectedDate.getDate())}`;
+  const selectedDateClosed = closedDays.has(selectedDateKey);
+  const slots = useMemo(
+    () => (selectedDateClosed ? [] : buildSlotsForDate(selectedDate)),
+    [selectedDate, selectedDateClosed]
+  );
+
 
   async function handleLogout() {
     await supabase.auth.signOut();
@@ -207,6 +227,11 @@ function PrenotaPage() {
           </Link>
           <div className="flex items-center gap-4">
             {userName && <span className="text-sm text-muted-foreground hidden sm:inline">Ciao, {userName}</span>}
+            {isAdmin && (
+              <Link to="/admin" className="inline-flex items-center gap-1.5 text-sm text-gold hover:text-gold-soft transition">
+                <ShieldCheck className="w-4 h-4" /> Admin
+              </Link>
+            )}
             <button onClick={handleLogout} className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-gold transition">
               <LogOut className="w-4 h-4" /> Esci
             </button>
@@ -298,7 +323,10 @@ function PrenotaPage() {
           </h2>
           <div className="flex gap-2 overflow-x-auto pb-2 -mx-6 px-6">
             {dates.map((d, i) => {
-              const isClosed = OPEN_HOURS[d.getDay()].length === 0;
+              const key = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+              const isWeeklyClosed = OPEN_HOURS[d.getDay()].length === 0;
+              const isCustomClosed = closedDays.has(key);
+              const isClosed = isWeeklyClosed || isCustomClosed;
               const isSelected = i === selectedDateIdx;
               return (
                 <button
@@ -308,6 +336,7 @@ function PrenotaPage() {
                     setSelectedSlot(null);
                   }}
                   disabled={isClosed}
+                  title={isCustomClosed ? `Chiuso: ${closedInfo[key] || "giorno di chiusura"}` : undefined}
                   className={`shrink-0 w-20 py-3 rounded-lg border text-center transition ${
                     isSelected
                       ? "border-gold bg-gold/10"
@@ -335,7 +364,11 @@ function PrenotaPage() {
           <p className="text-sm text-muted-foreground mb-4 capitalize">
             {formatDateHeading(selectedDate)}
           </p>
-          {slots.length === 0 ? (
+          {selectedDateClosed ? (
+            <p className="text-muted-foreground text-sm bg-card border border-border rounded-lg p-4">
+              Salone chiuso in questa data{closedInfo[selectedDateKey] ? ` — ${closedInfo[selectedDateKey]}` : ""}.
+            </p>
+          ) : slots.length === 0 ? (
             <p className="text-muted-foreground text-sm">Nessuno slot disponibile per questa giornata.</p>
           ) : (
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
