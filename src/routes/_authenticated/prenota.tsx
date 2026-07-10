@@ -232,9 +232,13 @@ function PrenotaPage() {
                 <ShieldCheck className="w-4 h-4" /> Admin
               </Link>
             )}
+            <Link to="/impostazioni" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-gold transition">
+              <Settings className="w-4 h-4" /> Impostazioni
+            </Link>
             <button onClick={handleLogout} className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-gold transition">
               <LogOut className="w-4 h-4" /> Esci
             </button>
+
           </div>
         </div>
       </header>
