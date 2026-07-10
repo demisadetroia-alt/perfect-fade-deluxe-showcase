@@ -422,7 +422,7 @@ function Index() {
             {gallery.map((g, i) => (
               <FadeIn key={i} delay={i * 90}>
                 <figure
-                  className="group relative overflow-hidden rounded-xl aspect-[3/4] bg-card border border-border cursor-zoom-in"
+                  className="group relative overflow-hidden rounded-xl aspect-[3/4] bg-card border border-border cursor-pointer"
                   onClick={() => openLightbox(i)}
                 >
                   <img
@@ -431,9 +431,8 @@ function Index() {
                     loading="lazy"
                     className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition duration-300 flex items-center justify-center">
-                    <ZoomIn className="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition duration-300 drop-shadow-lg" />
-                  </div>
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition duration-300" />
+
                   <figcaption className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-background/95 via-background/60 to-transparent">
                     <span className="text-sm uppercase tracking-widest text-gold font-medium">
                       {g.label}
