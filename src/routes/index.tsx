@@ -625,17 +625,8 @@ function Index() {
         </div>
       </section>
 
-      {/* ── Pulsante WhatsApp flottante ── */}
-      <a
-        href={WHATSAPP_LINK}
-        target="_blank"
-        rel="noreferrer"
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-background border border-gold/40 text-gold px-5 py-3 rounded-full shadow-lg hover:bg-gold hover:text-primary-foreground transition font-medium text-sm"
-        aria-label="Prenota su WhatsApp"
-      >
-        <WhatsAppIcon className="w-5 h-5" />
-        <span className="hidden sm:inline">Prenota</span>
-      </a>
+      {/* Pulsante WhatsApp flottante rimosso — resta solo la CTA finale */}
+
 
       {/* ── Footer ── */}
       <footer className="border-t border-border py-10 px-6 bg-secondary/20">

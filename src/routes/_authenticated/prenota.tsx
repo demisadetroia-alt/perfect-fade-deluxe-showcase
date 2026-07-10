@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, useCallback } from "react";
-import { Scissors, ArrowLeft, LogOut, Calendar, Clock, AlertTriangle, Trash2, CheckCircle2, ShieldCheck } from "lucide-react";
+import { Scissors, ArrowLeft, LogOut, Calendar, Clock, AlertTriangle, Trash2, CheckCircle2, ShieldCheck, Settings } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -232,9 +232,13 @@ function PrenotaPage() {
                 <ShieldCheck className="w-4 h-4" /> Admin
               </Link>
             )}
+            <Link to="/impostazioni" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-gold transition">
+              <Settings className="w-4 h-4" /> Impostazioni
+            </Link>
             <button onClick={handleLogout} className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-gold transition">
               <LogOut className="w-4 h-4" /> Esci
             </button>
+
           </div>
         </div>
       </header>
