@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, useCallback } from "react";
-import { Scissors, ArrowLeft, LogOut, Calendar, Clock, AlertTriangle, Trash2, CheckCircle2, ShieldCheck } from "lucide-react";
+import { Scissors, ArrowLeft, LogOut, Calendar, Clock, AlertTriangle, Trash2, CheckCircle2, ShieldCheck, Settings } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
